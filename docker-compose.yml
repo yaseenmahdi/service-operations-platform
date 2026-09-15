@@ -1,0 +1,33 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: service_ops
+      POSTGRES_USER: service_ops
+      POSTGRES_PASSWORD: service_ops
+    ports:
+      - "5432:5432"
+    volumes:
+      - service_ops_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U service_ops -d service_ops"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: postgres
+      DB_URL: jdbc:postgresql://db:5432/service_ops
+      DB_USERNAME: service_ops
+      DB_PASSWORD: service_ops
+      DEMO_DATA_ENABLED: "true"
+    ports:
+      - "8080:8080"
+
+volumes:
+  service_ops_data:

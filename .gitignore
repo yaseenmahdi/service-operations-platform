@@ -1,0 +1,26 @@
+# Java / Maven
+/target/
+*.class
+*.log
+
+# IntelliJ / VS Code
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local environment
+.env
+.env.*
+!.env.example
+
+# Runtime data
+*.db
+*.mv.db
+*.trace.db
+
+# Docker overrides
+docker-compose.override.yml

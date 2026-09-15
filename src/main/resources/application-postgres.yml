@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/service_ops}
+    username: ${DB_USERNAME:service_ops}
+    password: ${DB_PASSWORD:service_ops}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+
+app:
+  demo-data:
+    enabled: ${DEMO_DATA_ENABLED:false}
